@@ -4,8 +4,15 @@ import { MdChevronRight, MdChevronLeft } from "react-icons/md";
 
 export default function Calendar({ date, setDate, availableDays }) {
   const isDayAvailable = (day) => {
-    const dayString = day.toDateString();
-    return availableDays.some((availableDay) => availableDay === dayString);
+    const selectedDate = new Date(day);
+    return availableDays.some((availableDay) => {
+      const availableDate = new Date(availableDay);
+      return (
+        selectedDate.getFullYear() === availableDate.getFullYear() &&
+        selectedDate.getMonth() === availableDate.getMonth() &&
+        selectedDate.getDate() === availableDate.getDate()
+      );
+    });
   };
 
   return (
@@ -13,7 +20,6 @@ export default function Calendar({ date, setDate, availableDays }) {
       mode="single"
       selected={date}
       onSelect={setDate}
-      showOutsideDays
       modifiers={{
         available: isDayAvailable,
       }}
@@ -22,15 +28,15 @@ export default function Calendar({ date, setDate, availableDays }) {
         caption_label: "text-sm font-medium text-gray-900",
         nav: "flex items-center",
         nav_button:
-          "h-6 w-6 bg-transparent hover:bg-blue--50 p-1 rounded-md transition-colors duration-300",
+          "h-10 rounded-full w-10 bg-transparent hover:bg-blue-50 p-1 transition-colors duration-300",
         nav_button_previous: "absolute left-1.5",
         nav_button_next: "absolute right-1.5",
         table: "w-full border-collapse",
         head_row: "flex font-medium text-gray-900",
-        head_cell: "m-0.5 w-9 font-normal text-sm",
+        head_cell: "m-0.5 w-full md:w-10 font-normal text-sm",
         row: "flex w-full mt-2",
-        cell: "text-gray-600 rounded-md h-9 w-9 text-center text-sm p-0 m-0.5 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-gray-900/20 [&:has([aria-selected].day-outside)]:text-white [&:has([aria-selected])]:bg-blue-500 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-        day: "h-9 w-9 p-0 font-normal",
+        cell: "text-gray-600 rounded-full h-10 w-full md:w-10 text-center text-sm p-0 m-0.5 relative focus-within:relative focus-within:z-20",
+        day: "h-10 w-full md:w-10 p-0 font-normal",
         day_range_end: "day-range-end",
         day_selected:
           "rounded-full bg-blue-500 text-white hover:bg-blue-600 hover:text-white focus:bg-blue-500 focus:text-white",
@@ -42,10 +48,10 @@ export default function Calendar({ date, setDate, availableDays }) {
       }}
       components={{
         IconLeft: ({ ...props }) => (
-          <MdChevronLeft {...props} className="h-6 w-6 border rounded-full" />
+          <MdChevronLeft {...props} className="w-full h-full" />
         ),
         IconRight: ({ ...props }) => (
-          <MdChevronRight {...props} className="h-6 w-6  border rounded-full" />
+          <MdChevronRight {...props} className="w-full h-full" />
         ),
       }}
     />

@@ -14,7 +14,7 @@ export default function PopupModal(props) {
       >
         <MdClose size={24} />
       </button>
-      <div className="bg-white rounded-lg shadow-lg z-50 max-h-[80dvh] h-full">
+      <div className="bg-white rounded-lg shadow-lg z-50 max-h-[80dvh] h-fit overflow-y-auto md:overflow-hidden">
         {props.title && (
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">{props.title}</h2>

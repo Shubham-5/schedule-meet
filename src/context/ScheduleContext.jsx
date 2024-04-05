@@ -1,15 +1,14 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
 const SchedulingContext = createContext({
   step: 0,
   date: null,
   time: null,
   showModal: false,
+  setShowModal: () => {},
   setDate: () => {},
   setTime: () => {},
   setStep: () => {},
-  closeModal: () => {},
-  openModal: () => {},
 });
 
 const SchedulingProvider = ({ children }) => {
@@ -36,6 +35,4 @@ const SchedulingProvider = ({ children }) => {
   );
 };
 
-const useScheduleState = () => useContext(SchedulingContext);
-
-export { useScheduleState, SchedulingProvider };
+export { SchedulingContext, SchedulingProvider };
